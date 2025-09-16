@@ -1,0 +1,6 @@
+# IDE and Editor specific files
+.vscode/
+
+# Sensitive configuration files
+config.json
+.env

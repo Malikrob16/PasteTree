@@ -1,0 +1,83 @@
+:root {
+
+  /* Basic colors */
+  --white:#fff;
+  --black:#000;
+  --gray:#eaeaea;
+
+  /* Brand Specific colors */
+  /* For Background/Cards */
+  --darkbrown:#291C0E;
+
+  /* For Sections */
+  --softbrown:#6E473B;
+
+  /* Undecided */
+  --tanbrown:#A78D78;
+  --softgray:#BEB5A9;
+
+  /* For Text */
+  --tan:#E1D4C2;
+
+}
+
+/* Basic formatting across all elements */
+html {
+	box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,*::before,*::after {
+  box-sizing: border-box;
+}
+
+figure {
+	margin: 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+h1,
+h2,
+h3 {
+	margin: 0;
+}
+
+p {
+	margin: 0 0 1rem;
+}
+
+p:last-of-type {
+	margin: 0;
+}
+
+button {
+	margin: 1rem 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Sansation", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
+  line-height: 1.65;
+  color: var(--tan);
+  background-color: var(--darkbrown);
+}
+
+.main {
+  color: var(--darkbrown);
+  background: var(--tanbrown);
+}
+
+.footer {
+  color: var(--darkbrown);
+  background: var(--softgray);
+}
