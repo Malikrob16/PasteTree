@@ -105,9 +105,43 @@ body {
 .user-account {
 }
 
+.sr-only {
+  visibility: hidden;
+}
+
 .main {
+  width: 100%;
+  /* Height set to test and style post items */
+  height: 100vh;
   color: var(--darkbrown);
   background: var(--tanbrown);
+}
+
+.post-item {
+  width: 300px;
+  height: 500px;
+  background-color: var(--darkbrown);
+  color: var(--tan);
+}
+
+
+.creator-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-wrapper .post-interactions {
+  display: flex;
+
+}
+
+.post-wrapper .post-interactions button{
+  background: none;
+  border: none;
+  place-items: center;
+  cursor: pointer;
 }
 
 .footer {

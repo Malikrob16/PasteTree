@@ -1,0 +1,7 @@
+Ideas:
+-- Have heart icon change to tan on click (change fill)
+-- Have comment hidden window popup on comment click
+
+
+Fixes:
+-- Figure out proper post sizing and structure (Use Angela J. Holden's site / video for reference)
