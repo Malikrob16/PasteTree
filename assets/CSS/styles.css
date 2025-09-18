@@ -60,6 +60,7 @@ button {
 }
 
 body {
+  display: grid;
   padding: 0;
   margin: 0;
   font-family: "Sansation", sans-serif;
@@ -70,6 +71,38 @@ body {
   line-height: 1.65;
   color: var(--tan);
   background-color: var(--darkbrown);
+}
+
+.header .header-logo {
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.header .header-logo > * {
+  grid-area: 1 / 1;
+}
+
+.backtree {
+  width: 200px;
+  height: 150px;
+}
+
+.frontcupcake {
+  width: 100px;
+  height: 100px;
+}
+
+.logo-name-left {
+  position: relative;
+  right: 100;
+}
+
+.logo-name-right {
+  position: relative;
+}
+
+.user-account {
 }
 
 .main {
