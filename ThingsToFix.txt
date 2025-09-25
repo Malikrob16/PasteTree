@@ -3,7 +3,10 @@ Ideas:
 -- Have comment hidden window popup on comment click
 -- Lazy load all images/post
 -- Change logo to tree cupcake png or find single gif that matches
+-- Make create post method
 
 
 Fixes:
 -- Figure out proper post sizing and structure (Use Angela J. Holden's site / video for reference)
+-- Optimize images for better loading aim for 50kb per image
+-- Add alt="description of image" to all images used

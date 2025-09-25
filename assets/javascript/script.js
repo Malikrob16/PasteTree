@@ -41,6 +41,13 @@ function randomTime() {
   return Math.floor(Math.random() * 60) + 1;
 };
 
+function randomName() {
+  let randomindex = Math.floor(Math.random() * postUser.length);
+  let randomUser = postUser[randomindex];
+
+  return randomUser;
+}
+
 function createPost(imageSrc, userName, randomtime, id, sizeClass= "") {
   return `
     <div class="post-item ${sizeClass}" data-id=${id}>
@@ -58,7 +65,7 @@ function createPost(imageSrc, userName, randomtime, id, sizeClass= "") {
         </div>
         <div class="post-interactions">
             <button class="like-button" id="like-button">
-              <svg fill="" stroke="" width="50px" height="50px" viewBox="0 0 15 15" version="1.1" id="heart" xmlns="http://www.w3.org/2000/svg">
+              <svg fill="" width="50px" height="50px" viewBox="0 0 15 15" version="1.1" id="heart" xmlns="http://www.w3.org/2000/svg">
               <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
               </svg>
               <div class="number-likes" id="number-likes" >0</div>
@@ -79,7 +86,7 @@ function createPost(imageSrc, userName, randomtime, id, sizeClass= "") {
             </button>
 
             <button class="share-button" id="share-button">
-              <svg fill="" width="50px" height="50px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><path d="M21.707,11.293l-8-8A.99991.99991,0,0,0,12,4V7.54492A11.01525,11.01525,0,0,0,2,18.5V20a1,1,0,0,0,1.78418.62061,11.45625,11.45625,0,0,1,7.88672-4.04932c.0498-.00635.1748-.01611.3291-.02588V20a.99991.99991,0,0,0,1.707.707l8-8A.99962.99962,0,0,0,21.707,11.293ZM14,17.58594V15.5a.99974.99974,0,0,0-1-1c-.25488,0-1.2959.04932-1.56152.085A14.00507,14.00507,0,0,0,4.05176,17.5332,9.01266,9.01266,0,0,1,13,9.5a.99974.99974,0,0,0,1-1V6.41406L19.58594,12Z"/></svg>
+              <svg width="50px" height="50px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><path d="M21.707,11.293l-8-8A.99991.99991,0,0,0,12,4V7.54492A11.01525,11.01525,0,0,0,2,18.5V20a1,1,0,0,0,1.78418.62061,11.45625,11.45625,0,0,1,7.88672-4.04932c.0498-.00635.1748-.01611.3291-.02588V20a.99991.99991,0,0,0,1.707.707l8-8A.99962.99962,0,0,0,21.707,11.293ZM14,17.58594V15.5a.99974.99974,0,0,0-1-1c-.25488,0-1.2959.04932-1.56152.085A14.00507,14.00507,0,0,0,4.05176,17.5332,9.01266,9.01266,0,0,1,13,9.5a.99974.99974,0,0,0,1-1V6.41406L19.58594,12Z"/></svg>
               <span class="sr-only">Share</span>
             </button>
           </div>
@@ -145,8 +152,8 @@ function renderPosts() {
 
     // Alternate post sizes
     let sizeClass = "";
-    if (index % 6 === 5) sizeClass = "post-wide";
-    else if (index % 6 === 1) sizeClass = "post-tall";
+    if (index % 6 === 2) sizeClass = "post-wide";
+    else if (index % 6 === 5) sizeClass = "post-tall";
 
     // Build post
     main.innerHTML += createPost(img, userName, time, index, sizeClass);
@@ -155,67 +162,14 @@ function renderPosts() {
   addPostEventListeners();
 };
 
-// Base structure used to figure out like button/ like count and comment button / comment count
-// function CountButtonClick() {
-//   const countButton = document.getElementById('count-button');
-
-//   countButton.addEventListener('click', () => {
-//     count++;
-//     countButton.textContent = count;
-//   });
-// };
-// function RemoveButtonCountClick() {
-//   const removecountButton = document.getElementById('remove-button');
-//   const countButton = document.getElementById('count-button');
-
-//   removecountButton.addEventListener('click', () => {
-//     // Ensure count can not go below 0
-//     if (count != 0){
-//     count--;
-//     countButton.textContent = count;
-//     };
-//   });
-// };
-
-
-// // Post interaction Handles liking and removing like on post. 
-// function liked() {
-//   const likeButton = document.getElementById("like-button");
-//   const numberLikes = document.getElementById("number-likes");
-
-//   let likeCount = 0;
-
-//   likeButton.addEventListener('click', () => {
-
-//     likeButton.classList.toggle('liked');
-
-//     if(likeButton.classList.contains('liked')){
-//       console.log("Post has been liked");
-//       likeButton.style.fill = 'var(--raspberry)';
-//       likeCount += 1;
-
-//       numberLikes.textContent = likeCount;
-
-//     } else {
-//       console.log("Post like has been removed");
-//       likeButton.style.fill = 'black';
-//       likeCount -= 1;
-
-//       numberLikes.textContent = likeCount;
-//     }
-
-//   });
-// };
-
-function GetHtmlStructure() {
+function GetHtmlStructure(randomname) {
 
   const bodyTag = document.querySelector('body');
 
   bodyTag.innerHTML = `
   <header class="header" id="header">
     <div class="header-logo">
-      <img class="backtree" src="./assets/images/trees.gif">
-      <img class="frontcupcake" src="./assets/images/cupcake-logo.gif">
+    <div class="cupcake-logo"><img src="./assets/images/cupcake-logo.gif" style="width:50px;height:50px;"></div>
       <div class="site-name">
         <span class="logo-name-left">Paste</span>
         <span class="logo-name-right">Tree</span>
@@ -224,33 +178,47 @@ function GetHtmlStructure() {
   </header>
 
   <div class="user-account">
-    <p>User account goes here</p>
+    <details class="user-wrapper">
+      <summary>
+        <div class="user-profile"><img src="./assets/images/profile-image.jpg" alt="User Avatar" style="border-radius:50%; width:50px; height:75px;"></div>
+        <div class="user-name">${randomname}</div>
+      </summary>
+      <div class="user-details">
+        <p><span>Currently</span></p>
+        <div class="user-name">${randomname}</div>
+        <div class="type-account"><span>Personal</span></div>
+        <div class="user-email"><span>fakeEmail1@gmail.com</span></div>
+        <button class="details-button">Profile</button>
+        <button class="details-button">Favorites</button>
+        <button class="details-button">Log Out</button>
+      </div>
+    </details>
   </div>
 
   <aside class="aside">
     <nav aria-label="Main navigation" class="aside-container">
       <ul>
-        <li><a href="#"><svg fill="#000000" width="50px" height="50px" viewBox="0 0 24 24" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg"><path d="M12 3s-6.186 5.34-9.643 8.232c-.203.184-.357.452-.357.768 0 .553.447 1 1 1h2v7c0 .553.447 1 1 1h3c.553 0 1-.448 1-1v-4h4v4c0 .552.447 1 1 1h3c.553 0 1-.447 1-1v-7h2c.553 0 1-.447 1-1 0-.316-.154-.584-.383-.768-3.433-2.892-9.617-8.232-9.617-8.232z"/></svg>Home</a></li>
+        <li class="aside-nav-item"><a href="#"><svg fill="#000000" width="50px" height="50px" viewBox="0 0 24 24" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg"><path d="M12 3s-6.186 5.34-9.643 8.232c-.203.184-.357.452-.357.768 0 .553.447 1 1 1h2v7c0 .553.447 1 1 1h3c.553 0 1-.448 1-1v-4h4v4c0 .552.447 1 1 1h3c.553 0 1-.447 1-1v-7h2c.553 0 1-.447 1-1 0-.316-.154-.584-.383-.768-3.433-2.892-9.617-8.232-9.617-8.232z"/></svg><span>Home</span></a></li>
 
-        <li><a href="#"><svg fill="#000000" width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <li class="aside-nav-item"><a href="#"><svg fill="#000000" width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M12,2 C17.5228475,2 22,6.4771525 22,12 C22,17.5228475 17.5228475,22 12,22 C6.4771525,22 2,17.5228475 2,12 C2,6.4771525 6.4771525,2 12,2 Z M17.9842695,7.39078625 C18.1985588,6.64477525 17.4973604,5.9435768 16.7513494,6.1578661 L16.6494246,6.19284365 L9.57835679,9.02127078 L9.47282273,9.07079854 C9.30957453,9.15937167 9.17428758,9.29167162 9.08209683,9.45256344 L9.02127078,9.57835679 L6.19284365,16.6494246 L6.1578661,16.7513494 C5.9435768,17.4973604 6.64477525,18.1985588 7.39078625,17.9842695 L7.49271102,17.949292 L14.5637788,15.1208648 L14.6693129,15.0713371 C14.8325611,14.982764 14.967848,14.850464 15.0600388,14.6895722 L15.1208648,14.5637788 L17.949292,7.49271102 L17.9842695,7.39078625 Z M12,10 C13.1045695,10 14,10.8954305 14,12 C14,13.1045695 13.1045695,14 12,14 C10.8954305,14 10,13.1045695 10,12 C10,10.8954305 10.8954305,10 12,10 Z"/>
-        </svg>Explore</a></li>
+        </svg><span>Explore</span></a></li>
 
-        <li><a href="#"><svg width="50px" height="50px" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><defs><style>
+        <li class="aside-nav-item"><a href="#"><svg width="50px" height="50px" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><defs><style>
         .cls-1 {
           fill: ;
           fill-rule: evenodd;
         }
         </style></defs><path class="cls-1" d="M1080,270a30,30,0,1,1,30-30A30,30,0,0,1,1080,270Zm14-34h-10V226a4,4,0,0,0-8,0v10h-10a4,4,0,0,0,0,8h10v10a4,4,0,0,0,8,0V244h10A4,4,0,0,0,1094,236Z" id="add" transform="translate(-1050 -210)"/></svg>Create</a></li>
 
-        <li><a href="#"><svg fill="red" width="50px" height="50px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <li class="aside-nav-item"><a href="#"><svg fill="red" width="50px" height="50px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <rect x="0" fill="none" width="20" height="20"/>
         <g>
         <path d="M10 18c1.1 0 2-.9 2-2H8c0 1.1.9 2 2 2zm4-8.2V7.5c0-1.8-1.2-3.4-3-3.9.1-.2.1-.4.2-.5-.1-.6-.6-1.1-1.2-1.1s-1.1.5-1.1 1.1c0 .2.1.4.2.5-1.8.4-3 2-3 3.9v2.2c-.1 1.2-.9 2.3-2 2.8V15h12v-2.5c-1.2-.4-2-1.5-2.1-2.7z"/>
         </g>
-        </svg>Updates</a></li>
+        </svg><span>Updates</span></a></li>
 
-        <li><a href="#"><svg fill=""
+        <li class="aside-nav-item"><a href="#"><svg fill=""
           xmlns:dc="http://purl.org/dc/elements/1.1/"
           xmlns:cc="http://creativecommons.org/ns#"
           xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -326,7 +294,7 @@ function GetHtmlStructure() {
               transform="translate(0,604.36209)"
               id="rect3337" />
           </g>
-        </svg>Messages</a></li>
+        </svg><span>Messages</span></a></li>
       </ul>
     </nav>
   </aside>
@@ -335,13 +303,21 @@ function GetHtmlStructure() {
   </main>
 
   <footer class="footer" id="footer">
-    <h3>Footer goes here</h3>
+    <img src="./assets/images/cupcake-logo.gif" alt="PasteTree Logo"style="width:35px;height:35px;" class="small-logo">
+    <p class="brand-tagline">Bake. Share. Connect.</p>
+    <p>©️ 2025 Malik Robinson</p>
   </footer>
   `;
 };
 
+// Main function
 document.addEventListener('DOMContentLoaded', function() {
   console.log("The DOM is fully loaded");
-  GetHtmlStructure();
+
+  // Get random user name and display in user profile section
+  const name = randomName();
+
+  // Get html structure
+  GetHtmlStructure(name);
   renderPosts();
 });
