@@ -90,6 +90,7 @@ function createPost(imageSrc, userName, randomtime, id, sizeClass= "") {
               <span class="sr-only">Share</span>
             </button>
           </div>
+        </div>
       </div>
     </div>
   `;
@@ -118,7 +119,7 @@ function addPostEventListeners() {
 
       } else {
         console.log("Post like has been removed");
-        likeButton.querySelector("svg").style.fill = 'black';
+        likeButton.querySelector("svg").style.fill = 'var(--darkbrown)';
         count -= 1;
       }
       
@@ -153,7 +154,8 @@ function renderPosts() {
     // Alternate post sizes
     let sizeClass = "";
     if (index % 6 === 2) sizeClass = "post-wide";
-    else if (index % 6 === 5) sizeClass = "post-tall";
+    else if (index % 6 === 1) sizeClass = "post-wider";
+    else if (index % 6 === 2) sizeClass = "post-widest";
 
     // Build post
     main.innerHTML += createPost(img, userName, time, index, sizeClass);
