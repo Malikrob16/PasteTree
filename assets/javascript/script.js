@@ -153,8 +153,11 @@ function renderPosts() {
 
     // Alternate post sizes
     let sizeClass = "";
-    if (index % 6 === 2) sizeClass = "post-wide";
 
+    // Commented out not used in column masonry style
+    // if (index % 6 === 2) sizeClass = "post-wide";
+    // else if (index % 6 === 1) sizeClass = "post-wider";
+    // else if (index % 6 === 2) sizeClass = "post-widest";
 
     // Build post
     main.innerHTML += createPost(img, userName, time, index, sizeClass);

@@ -311,11 +311,8 @@ body {
   overflow-y: scroll;
 
   /* Masonry Style */
-  display: grid;
-  grid-template-columns: repeat(4, minmax(250px, 1fr));
-  grid-auto-rows: auto;
-  gap: 1rem;
-  align-items: start;
+  column-count: 4;
+  column-gap: 1rem;
   color: var(--darkbrown);
   background: var(--darkbrown);
   box-sizing: border-box;
@@ -324,20 +321,21 @@ body {
 
 @media (max-width: 1200px) {
   .main {
-    grid-template-columns: repeat(2, minmax(250px, 1fr));
+    column-count: 2;
   }
 }
 @media (max-width: 800px) {
   .main {
-    grid-template-columns: 1fr;
+    column-count: 1;
   }
 }
 
 .post-item {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: var(--softbrown);
+  display: inline-block;
+  width: 100%; 
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  background-color: var(--tan);
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -367,26 +365,10 @@ body {
   display: block;
 }
 
-/* Widest post */
-.post-widest {
-  grid-column: span 4;
-}
-
-/* wider post */
-.post-wider {
-  grid-column: span 3;
-}
-
-/* Wide posts */
-.post-wide {
-  grid-column: span 2;
-}
-
 .post-wrapper {
-  padding: 1rem;
-  background: var(--tan);
+  display: flex;
+  flex-direction: column;
 }
-
 
 .creator-info {
   display: flex;
@@ -416,7 +398,7 @@ body {
   font-size: 0.8rem;
 }
 
-.post-wrapper .post-interactions {
+.post-interactions {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -425,7 +407,7 @@ body {
   border-top: 1px rgba(0,0,0,0.1) solid;
 }
 
-.post-wrapper .post-interactions button{
+.post-interactions button{
   background: none;
   border: none;
   cursor: pointer;
@@ -437,16 +419,16 @@ body {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.post-wrapper .post-interactions button:hover {
+.post-interactions button:hover {
   color: var(--raspberry);
   transform: scale(1.1);
 }
 
-.post-wrapper .post-interactions button svg {
+.post-interactions button svg {
   fill: var(--darkbrown); /* lighter icon by default */
 }
 
-.post-wrapper .post-interactions button:hover svg {
+.post-interactions button:hover svg {
   fill: var(--raspberry); /* pops on hover */
 }
 
