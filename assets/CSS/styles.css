@@ -238,7 +238,6 @@ body {
 .aside {
   grid-area: aside;
   box-shadow: 2px 0 10px rgba(0,0,0,0.4);
-  /* background: linear-gradient(to bottom, var(--softbrown), var(--darkbrown)); */
 }
 
 .aside nav ul svg {
@@ -286,8 +285,9 @@ body {
   background-color: var(--tan);
   color: var(--raspberry);    
   font-weight: bold;
-  transform: translateX(8px);
-  box-shadow: 2px 15px 10px rgba(227,11,97,0.3);
+  transform: translateX(-8px);
+  border: 1px solid var(--darkbrown);
+  box-shadow: 10px 10px 10px rgba(227,11,97,0.3);
 }
 
 .aside-nav-item:hover svg {
@@ -312,7 +312,7 @@ body {
 
   /* Masonry Style */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-auto-rows: auto;
   gap: 1rem;
   align-items: start;
@@ -366,14 +366,6 @@ body {
   object-fit: cover;
   display: block;
 }
-
-/* Responsive styling for main container not using yet */
-/* @media screen and (max-width: 1200px) {
-  .main { column-count: 2; }
-}
-@media screen and (max-width: 800px) {
-  .main { column-count: 1; }
-} */
 
 /* Widest post */
 .post-widest {
