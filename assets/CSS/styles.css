@@ -15,7 +15,7 @@
   /* Undecided */
   --tanbrown:#A78D78;
   --softgray:#BEB5A9;
-  --tan:#E1D4C2;
+  --tan:rgb(225, 212, 194);
 
   /* For post interaction */
   --raspberry:rgb(227, 11, 92);
@@ -308,7 +308,7 @@ body {
 
   /* Masonry Style */
   display: grid;
-  grid-template-columns: repeat(5, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-auto-rows: 10px;
   gap: 1rem;
   align-items: start;
@@ -356,10 +356,42 @@ body {
 }
 
 .post-image img {
+  position: relative;
   width: 100%;
   height: auto;
   object-fit: cover;
   display: block;
+}
+
+.favorite-icon {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  top: 5px;
+  right: 10px;
+  background: rgba(225, 212, 194, 0.8);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.favorite-icon:hover {
+  background: rgba(0,0,0,0.3);
+}
+
+.favorite-icon svg {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.favorite-icon .star {
+  fill: var(--darkbrown);
 }
 
 /* Wide posts

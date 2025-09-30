@@ -2,26 +2,31 @@
 let count = 0;
 
 const postImages = [
-  "./assets/images/alex-lvrs-unsplash.jpg",
-  "./assets/images/alison-pang-unsplash.jpg",
-  "./assets/images/anastasiya-badun-unsplash.jpg",
-  "./assets/images/arsham-baseri-unsplash.jpg",
-  "./assets/images/brother-yoon-unsplash.jpg",
-  "./assets/images/busra-salkim-unsplash.jpg",
-  "./assets/images/danist-soh-unsplash.jpg",
-  "./assets/images/debby-hudson-unsplash.jpg",
-  "./assets/images/holly-stratton-unsplash.jpg",
-  "./assets/images/jack-plant-unsplash.jpg",
-  "./assets/images/jr-r-unsplash.jpg",
-  "./assets/images/metin-ozer-unsplash.jpg",
-  "./assets/images/mink-mingle-unsplash.jpg",
-  "./assets/images/mustafa-turhan-unsplash.jpg",
-  "./assets/images/scott-eckersley-unsplash.jpg",
-  "./assets/images/serghei-savchiuc-unsplash.jpg",
-  "./assets/images/siyi-unsplash.jpg",
-  "./assets/images/siyi-w-unsplash.jpg",
-  "./assets/images/vasylyna-kucherepa-unsplash.jpg",
-  "./assets/images/vita-marija-murenaite-unsplash.jpg"
+  "./assets/images/optimized/optimized-alex-lvrs-unsplash.jpg",
+  "./assets/images/optimized/optimized-alison-pang-unsplash.jpg",
+  "./assets/images/optimized/optimized-anastasiya-badun-unsplash.jpg",
+  "./assets/images/optimized/optimized-arsham-baseri-unsplash.jpg",
+  "./assets/images/optimized/optimized-ben-tofan-unsplash.jpg",
+  "./assets/images/optimized/optimized-brother-yoon-unsplash.jpg",
+  "./assets/images/optimized/optimized-busra-salkim-unsplash.jpg",
+  "./assets/images/optimized/optimized-danist-soh-unsplash.jpg",
+  "./assets/images/optimized/optimized-debby-hudson-unsplash.jpg",
+  "./assets/images/optimized/optimized-heather-barnes-unsplash.jpg",
+  "./assets/images/optimized/optimized-holly-stratton-unsplash.jpg",
+  "./assets/images/optimized/optimized-jack-plant-unsplash.jpg",
+  "./assets/images/optimized/optimized-jr-r-unsplash.jpg",
+  "./assets/images/optimized/optimized-khanh-do-unsplash.jpg",
+  "./assets/images/optimized/optimized-metin-ozer-unsplash.jpg",
+  "./assets/images/optimized/optimized-mink-mingle-unsplash.jpg",
+  "./assets/images/optimized/optimized-mustafa-turhan-unsplash.jpg",
+  "./assets/images/optimized/optimized-scott-eckersley-unsplash.jpg",
+  "./assets/images/optimized/optimized-serghei-savchiuc-unsplash.jpg",
+  "./assets/images/optimized/optimized-serghei-savchiuc2-unsplash.jpg",
+  "./assets/images/optimized/optimized-shayna-douglas-unsplash.jpg",
+  "./assets/images/optimized/optimized-siyi-unsplash.jpg",
+  "./assets/images/optimized/optimized-siyi-w-unsplash.jpg",
+  "./assets/images/optimized/optimized-vasylyna-kucherepa-unsplash.jpg",
+  "./assets/images/optimized/optimized-vita-marija-murenaite-unsplash.jpg"
 ];
 
 const postUser = [
@@ -53,6 +58,12 @@ function createPost(imageSrc, userName, randomtime, id, sizeClass= "") {
     <div class="post-item ${sizeClass}" data-id=${id}>
       <figure class="post-image">
         <img loading="lazy" src="${imageSrc}">
+        <button class="favorite-icon" id="favorite-button"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+              width="800px" height="800px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+          <polygon class="star" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="32,47 12,62 20,38 2,24 24,24 32,1 40,24 
+            62,24 44,38 52,62 "/>
+          </svg>
+        </button>
       </figure>
       <div class="post-wrapper">
         <div class="creator-info">
@@ -98,10 +109,24 @@ function addPostEventListeners() {
     const likeButton = post.querySelector(".like-button");
     const commentButton = post.querySelector(".comment-button");
     const shareButton = post.querySelector(".share-button");
+    const favoriteButton = post.querySelector(".favorite-icon");
 
     const likeCount = post.querySelector(".number-likes");
     const commentCount = post.querySelector(".number-comments");
 
+    // Favorite Button
+    favoriteButton.addEventListener("click", () => {
+
+      favoriteButton.classList.toggle('favorited');
+
+      if(favoriteButton.classList.contains('favorited')){
+        console.log("Post has been favorited!");
+        favoriteButton.querySelector("svg .star").style.fill = 'var(--raspberry)';
+      } else {
+        console.log("Post favorite has been removed");
+        favoriteButton.querySelector("svg .star").style.fill = "var(--darkbrown)";
+      }
+    });
 
     // Like Button
     likeButton.addEventListener("click", () => {
@@ -166,11 +191,6 @@ function renderPosts() {
     // Alternate post sizes
     let sizeClass = "";
 
-    // Commented out not used in column masonry style
-    // if (index % 6 === 2) sizeClass = "post-wide";
-    // else if (index % 6 === 1) sizeClass = "post-wider";
-    // else if (index % 6 === 2) sizeClass = "post-widest";
-
     // Build post
     main.innerHTML += createPost(img, userName, time, index, sizeClass);
 
@@ -178,7 +198,7 @@ function renderPosts() {
     const image = postItem.querySelector("img");
 
     image.onload = () => {
-    resizeGridItem(item);
+    resizeGridItem(postItem);
     };
 
   });
@@ -209,9 +229,9 @@ function GetHtmlStructure(randomname) {
   </header>
 
   <div class="user-account">
-    <details class="user-wrapper">
+    <details class="user-wrapper" id="user-details">
       <summary>
-        <div class="user-profile"><img src="./assets/images/profile-image.jpg" alt="User Avatar" style="border-radius:50%; width:50px; height:75px;"></div>
+        <div class="user-profile"><img src="./assets/images/optimized/optimized-profile-image.jpg" alt="User Avatar" style="border-radius:50%; width:50px; height:75px;"></div>
         <div class="user-name">${randomname}</div>
       </summary>
       <div class="user-details">
@@ -340,6 +360,22 @@ function GetHtmlStructure(randomname) {
   </footer>
   `;
 };
+
+// Accessibility close details menu when escape key is pressed and the details menu is open.
+document.addEventListener('keydown', (event) => {
+  const userDetails = document.getElementById('user-details');
+  if (event.key === "Escape" && userDetails?.open) {
+    userDetails.open = false; // Alternative way to close
+  }
+});
+
+// Accessibility close details menu when user clicks outside of menu and the details menu is open.
+document.addEventListener('click', (event) => {
+  const userDetails = document.getElementById('user-details');
+  if (userDetails.open && !userDetails.contains(event.target)) {
+    userDetails.open = false;
+  }
+});
 
 // Main function
 document.addEventListener('DOMContentLoaded', function() {
