@@ -15,3 +15,4 @@ Fixes:
 -- Redo post masonry layout from scratch (Post not displaying properly) ✅
 -- Use css columns for main styling 
 -- Fix user account section so that the summary spans the entire section. ✅
+-- Fix mobile view Footer is too big on Z fold 5
