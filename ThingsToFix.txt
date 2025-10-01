@@ -1,16 +1,17 @@
 Ideas:
 -- Have heart icon change to tan on click (change fill)
 -- Have comment hidden window popup on comment click
--- Lazy load all images/post
--- Change logo to tree cupcake png or find single gif that matches
--- Make create post method
+-- Lazy load all images/post ✅
+-- Change logo to tree cupcake png or find single gif that matches ✅
+-- Make create post method 
 -- make aside nav buttons less than full width so that box shadow can be visible on right side of button. (This will give the buttons more dimension.)
 
 
 Fixes:
--- Figure out proper post sizing and structure (Use Angela J. Holden's site / video for reference)
--- Optimize images for better loading aim for 50kb per image
+-- Figure out proper post sizing and structure (Use Angela J. Holden's site / video for reference) ✅
+-- Optimize images for better loading aim for 50kb per image ✅
 -- Add alt="description of image" to all images used
--- Fix post so that they vary in height making the layout a masonry style
--- Redo post masonry layout from scratch (Post not displaying properly)
--- Use css columns for main styling
+-- Fix post so that they vary in height making the layout a masonry style ✅
+-- Redo post masonry layout from scratch (Post not displaying properly) ✅
+-- Use css columns for main styling 
+-- Fix user account section so that the summary spans the entire section. ✅
