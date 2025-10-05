@@ -1,6 +1,10 @@
 // Global variables
 let count = 0;
 
+// User favorited post
+let favoritePosts = JSON.parse(localStorage.getItem("favorites")) || [];
+console.log(favoritePosts);
+
 const postImages = [
   "./assets/images/optimized/optimized-alex-lvrs-unsplash.jpg",
   "./assets/images/optimized/optimized-alison-pang-unsplash.jpg",
@@ -58,7 +62,7 @@ function createPost(imageSrc, userName, randomtime, id, sizeClass= "") {
     <div class="post-item ${sizeClass}" data-id=${id}>
       <figure class="post-image">
         <img loading="lazy" src="${imageSrc}">
-        <button aria-hidden="true" aria-label="Favorite button" class="favorite-icon" id="favorite-button"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        <button aria-label="Favorite button" class="favorite-icon" id="favorite-button"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
               width="800px" height="800px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <polygon class="star" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="32,47 12,62 20,38 2,24 24,24 32,1 40,24 
             62,24 44,38 52,62 "/>
@@ -82,7 +86,7 @@ function createPost(imageSrc, userName, randomtime, id, sizeClass= "") {
               <div class="number-likes" id="number-likes" >0</div>
             </button>
 
-            <button aria-hidden="true" aria-label="Comment Button" class="comment-button" id="comment-button">
+            <button aria-label="Comment Button" class="comment-button" id="comment-button">
               <svg fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                 width="50px" height="50px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
               <g>
@@ -94,7 +98,7 @@ function createPost(imageSrc, userName, randomtime, id, sizeClass= "") {
               <div class="number-comments" id="number-comments" >0</div>
             </button>
 
-            <button aria-hidden="true" aria-label="Share Button" class="share-button" id="share-button">
+            <button aria-label="Share Button" class="share-button" id="share-button">
               <svg width="50px" height="50px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><path d="M21.707,11.293l-8-8A.99991.99991,0,0,0,12,4V7.54492A11.01525,11.01525,0,0,0,2,18.5V20a1,1,0,0,0,1.78418.62061,11.45625,11.45625,0,0,1,7.88672-4.04932c.0498-.00635.1748-.01611.3291-.02588V20a.99991.99991,0,0,0,1.707.707l8-8A.99962.99962,0,0,0,21.707,11.293ZM14,17.58594V15.5a.99974.99974,0,0,0-1-1c-.25488,0-1.2959.04932-1.56152.085A14.00507,14.00507,0,0,0,4.05176,17.5332,9.01266,9.01266,0,0,1,13,9.5a.99974.99974,0,0,0,1-1V6.41406L19.58594,12Z"/></svg>
             </button>
           </div>
@@ -114,19 +118,50 @@ function addPostEventListeners() {
     const likeCount = post.querySelector(".number-likes");
     const commentCount = post.querySelector(".number-comments");
 
+    // Commented out: needs to be fixed breaks grid on load.
+    // // ✅ Restore visual state on load
+    //   if (favoritePosts.includes(postId)) {
+    //     favoriteButton.classList.add('favorited');
+    //     favoriteButton.querySelector("svg .star").style.fill = 'var(--raspberry)';
+    //   }
+
     // Favorite Button
     favoriteButton.addEventListener("click", () => {
-
       favoriteButton.classList.toggle('favorited');
+      const postId = post.dataset.id; // grab post ID
 
-      if(favoriteButton.classList.contains('favorited')){
+      if (favoriteButton.classList.contains('favorited')) {
         console.log("Post has been favorited!");
         favoriteButton.querySelector("svg .star").style.fill = 'var(--raspberry)';
+
+        if (!favoritePosts.includes(postId)) {
+          favoritePosts.push(postId);
+          localStorage.setItem("favorites", JSON.stringify(favoritePosts)); // optional save
+          console.log(favoritePosts); // Display test of stored post indexes
+        }
       } else {
         console.log("Post favorite has been removed");
         favoriteButton.querySelector("svg .star").style.fill = "var(--darkbrown)";
+
+        favoritePosts = favoritePosts.filter(id => id !== postId);
+        localStorage.setItem("favorites", JSON.stringify(favoritePosts)); // update save
+        console.log(favoritePosts); // Display test of stored post indexes
       }
     });
+
+    // // Favorite Button
+    // favoriteButton.addEventListener("click", () => {
+
+    //   favoriteButton.classList.toggle('favorited');
+
+    //   if(favoriteButton.classList.contains('favorited')){
+    //     console.log("Post has been favorited!");
+    //     favoriteButton.querySelector("svg .star").style.fill = 'var(--raspberry)';
+    //   } else {
+    //     console.log("Post favorite has been removed");
+    //     favoriteButton.querySelector("svg .star").style.fill = "var(--darkbrown)";
+    //   }
+    // });
 
     // Like Button
     likeButton.addEventListener("click", () => {
@@ -213,6 +248,20 @@ function renderPosts() {
   });
 };
 
+function renderFavorites() {
+  const main = document.getElementById("main");
+  main.innerHTML = ""; // clear scroll
+
+  favoritePosts.forEach(favId => {
+    const img = postImages[favId];
+    const userName = postUser[favId % postUser.length];
+    const time = randomTime();
+    main.innerHTML += createPost(img, userName, time, favId);
+  });
+
+  addPostEventListeners();
+};
+
 function GetHtmlStructure(randomname) {
 
   const bodyTag = document.querySelector('body');
@@ -249,7 +298,7 @@ function GetHtmlStructure(randomname) {
   <aside class="aside">
     <nav aria-label="Main navigation" class="aside-container">
       <ul>
-        <li class="aside-nav-item" data-label="Home" ><a href="#"><svg fill="#000000" width="50px" height="50px" viewBox="0 0 24 24" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg"><path d="M12 3s-6.186 5.34-9.643 8.232c-.203.184-.357.452-.357.768 0 .553.447 1 1 1h2v7c0 .553.447 1 1 1h3c.553 0 1-.448 1-1v-4h4v4c0 .552.447 1 1 1h3c.553 0 1-.447 1-1v-7h2c.553 0 1-.447 1-1 0-.316-.154-.584-.383-.768-3.433-2.892-9.617-8.232-9.617-8.232z"/></svg><span>Home</span></a></li>
+        <li class="aside-nav-item" data-label="Home" ><a href="index.html"><svg fill="#000000" width="50px" height="50px" viewBox="0 0 24 24" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg"><path d="M12 3s-6.186 5.34-9.643 8.232c-.203.184-.357.452-.357.768 0 .553.447 1 1 1h2v7c0 .553.447 1 1 1h3c.553 0 1-.448 1-1v-4h4v4c0 .552.447 1 1 1h3c.553 0 1-.447 1-1v-7h2c.553 0 1-.447 1-1 0-.316-.154-.584-.383-.768-3.433-2.892-9.617-8.232-9.617-8.232z"/></svg><span>Home</span></a></li>
 
         <li class="aside-nav-item" data-label="Explore" ><a href="#"><svg fill="#000000" width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M12,2 C17.5228475,2 22,6.4771525 22,12 C22,17.5228475 17.5228475,22 12,22 C6.4771525,22 2,17.5228475 2,12 C2,6.4771525 6.4771525,2 12,2 Z M17.9842695,7.39078625 C18.1985588,6.64477525 17.4973604,5.9435768 16.7513494,6.1578661 L16.6494246,6.19284365 L9.57835679,9.02127078 L9.47282273,9.07079854 C9.30957453,9.15937167 9.17428758,9.29167162 9.08209683,9.45256344 L9.02127078,9.57835679 L6.19284365,16.6494246 L6.1578661,16.7513494 C5.9435768,17.4973604 6.64477525,18.1985588 7.39078625,17.9842695 L7.49271102,17.949292 L14.5637788,15.1208648 L14.6693129,15.0713371 C14.8325611,14.982764 14.967848,14.850464 15.0600388,14.6895722 L15.1208648,14.5637788 L17.949292,7.49271102 L17.9842695,7.39078625 Z M12,10 C13.1045695,10 14,10.8954305 14,12 C14,13.1045695 13.1045695,14 12,14 C10.8954305,14 10,13.1045695 10,12 C10,10.8954305 10.8954305,10 12,10 Z"/>
@@ -380,12 +429,21 @@ document.addEventListener('click', (event) => {
 // Accessibility close details menu when escape key is pressed and the details menu is open.
 document.addEventListener('keydown', (event) => {
   const postContainer = document.getElementById('main');
-  if (event.key === ' ') {
+
+  // Check for all possible spacebar values
+  if (event.code === 'Space' || event.key === ' ' || event.key === 'Spacebar') {
     event.preventDefault();
 
     if (postContainer) {
-      console.log("Space bar was pressed scrolling to top of post container!");
-      postContainer.scrollTop = 0;
+      console.log("Space bar pressed → scrolling to top of post container");
+      postContainer.scrollTo({
+        top: 0,
+        behavior: 'smooth' // optional
+      });
+
+      // If you want to *also move keyboard focus* to the container:
+      postContainer.setAttribute('tabindex', '-1'); // make it focusable if not already
+      postContainer.focus();
     }
   }
 });
@@ -400,4 +458,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get html structure
   GetHtmlStructure(name);
   renderPosts();
+
+  document.querySelector('button[aria-label="Favorites"]').addEventListener('click', () => {
+  console.log("Opening Favorites");
+  renderFavorites();
+  });
 });
