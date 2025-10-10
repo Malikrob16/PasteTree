@@ -401,14 +401,20 @@ body {
 }
 
 @media (max-width: 740px) {
+
+  /* Remove footer for mobile view */
+  .footer,
+  footer {
+    display: none !important;
+  }
+  
   body {
     grid-template-columns: 1fr;  /* One column layout */
     grid-template-rows: auto auto 1fr auto;  /* Header, Aside, Main, Footer */
     grid-template-areas: 
       "header"
       "aside"
-      "main"
-      "footer";
+      "main";
   }
 
   .aside {
