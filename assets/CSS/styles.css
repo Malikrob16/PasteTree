@@ -57,6 +57,8 @@ p:last-of-type {
 
 button {
 	margin: 1rem 0;
+  background: none;
+  border: none;
 }
 
 a {
@@ -399,14 +401,20 @@ body {
 }
 
 @media (max-width: 740px) {
+
+  /* Remove footer for mobile view */
+  .footer,
+  footer {
+    display: none !important;
+  }
+  
   body {
     grid-template-columns: 1fr;  /* One column layout */
     grid-template-rows: auto auto 1fr auto;  /* Header, Aside, Main, Footer */
     grid-template-areas: 
       "header"
       "aside"
-      "main"
-      "footer";
+      "main";
   }
 
   .aside {
@@ -561,11 +569,6 @@ body {
 .favorite-icon .star {
   fill: var(--darkbrown);
 }
-
-/* Wide posts
-.post-wide {
-  grid-column: span 2;
-} */
 
 .post-wrapper {
   padding: 1rem;

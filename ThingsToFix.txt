@@ -15,4 +15,6 @@ Fixes:
 -- Redo post masonry layout from scratch (Post not displaying properly) ✅
 -- Use css columns for main styling 
 -- Fix user account section so that the summary spans the entire section. ✅
--- Fix mobile view Footer is too big on Z fold 5
+-- Fix mobile view Footer is too big on Z fold 5 ✅
+-- Fix favorited post not retaining svg styling when loaded for favorites clicked
+-- Add a way for mobile users to view the post they favorited (Should only appear at 740px and below)
