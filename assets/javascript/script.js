@@ -86,7 +86,7 @@ function createPost(imageObj, userName, randomtime, id, sizeClass= "") {
             </button>
 
             <button aria-label="Comment Button" class="comment-button" id="comment-button">
-              <svg fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+              <svg aria-hidden="true" fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                 width="50px" height="50px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
               <g>
                 <path d="M88.466,16.936c-0.172-1.703-1.592-3.036-3.34-3.036H14.781v0.009c-1.705,0.047-3.079,1.355-3.247,3.027H11.5v56.342h0.068
