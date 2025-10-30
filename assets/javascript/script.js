@@ -62,7 +62,7 @@ function createPost(imageObj, userName, randomtime, id, sizeClass= "") {
     <div class="post-item ${sizeClass}" data-id=${id}>
       <figure class="post-image">
         <img loading="lazy" src="${imageObj.src}" alt="${imageObj.alt}">
-        <button aria-label="Favorite" class="favorite-icon" id="favorite-button"><svg aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        <button aria-label="Favorite this post" class="favorite-icon" id="favorite-button"><svg aria-hidden="true" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
               width="800px" height="800px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
           <polygon class="star" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="32,47 12,62 20,38 2,24 24,24 32,1 40,24 
             62,24 44,38 52,62 "/>
@@ -78,14 +78,14 @@ function createPost(imageObj, userName, randomtime, id, sizeClass= "") {
           <p class="time-posted">${randomtime} minuets ago</p>
         </div>
         <div class="post-interactions">
-            <button aria-hidden="true" aria-label="Like Button" class="like-button" id="like-button">
+            <button aria-label="Like this post" class="like-button" id="like-button">
               <svg aria-hidden="true" fill="" width="50px" height="50px" viewBox="0 0 15 15" version="1.1" id="heart" xmlns="http://www.w3.org/2000/svg">
               <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
               </svg>
               <div class="number-likes" id="number-likes" >0</div>
             </button>
 
-            <button aria-label="Comment Button" class="comment-button" id="comment-button">
+            <button aria-label="Comment on this post" class="comment-button" id="comment-button">
               <svg aria-hidden="true" fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                 width="50px" height="50px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
               <g>
@@ -97,7 +97,7 @@ function createPost(imageObj, userName, randomtime, id, sizeClass= "") {
               <div class="number-comments" id="number-comments" >0</div>
             </button>
 
-            <button aria-label="Share Button" class="share-button" id="share-button">
+            <button aria-label="Share this post" class="share-button" id="share-button">
               <svg aria-hidden="true" width="50px" height="50px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"><path d="M21.707,11.293l-8-8A.99991.99991,0,0,0,12,4V7.54492A11.01525,11.01525,0,0,0,2,18.5V20a1,1,0,0,0,1.78418.62061,11.45625,11.45625,0,0,1,7.88672-4.04932c.0498-.00635.1748-.01611.3291-.02588V20a.99991.99991,0,0,0,1.707.707l8-8A.99962.99962,0,0,0,21.707,11.293ZM14,17.58594V15.5a.99974.99974,0,0,0-1-1c-.25488,0-1.2959.04932-1.56152.085A14.00507,14.00507,0,0,0,4.05176,17.5332,9.01266,9.01266,0,0,1,13,9.5a.99974.99974,0,0,0,1-1V6.41406L19.58594,12Z"/></svg>
             </button>
           </div>
@@ -209,6 +209,15 @@ function renderPosts() {
 
     const postItem = main.lastElementChild;
     const image = postItem.querySelector("img");
+    const favoriteButton = postItem.querySelector(".favorite-icon");
+    const star = favoriteButton.querySelector("svg .star");
+
+    if (favoritePosts.includes(String(index))) {
+      favoriteButton.classList.add("favorited");
+      star.style.fill = "var(--raspberry)";
+    } else {
+      star.style.fill = "var(--darkbrown)"
+    }
 
     image.onload = () => {
     resizeGridItem(postItem);
@@ -247,18 +256,20 @@ function GetHtmlStructure(randomname) {
   bodyTag.innerHTML = `
   <header class="header" id="header">
     <div class="header-logo">
-    <div class="cupcake-logo"><img src="./assets/images/cupcake-logo.gif" style="width:50px;height:50px;"></div>
+    <div class="cupcake-logo"><img src="./assets/images/cupcake-logo.gif" alt="cupcake logo gif" style="width:50px;height:50px;"></div>
       <div class="site-name">
-        <span class="logo-name-left">Paste</span>
-        <span class="logo-name-right">Tree</span>
+        <h1>
+          <span class="logo-name-left">Paste</span>
+          <span class="logo-name-right">Tree</span>
+        </h1>
       </div>
     </div>
   </header>
 
   <div aria-label="User Profile" class="user-account">
-    <details aria-label="User Profile details" class="user-wrapper" id="user-details">
+    <details class="user-wrapper" id="user-details">
       <summary>
-        <div class="user-profile"><img src="./assets/images/optimized/optimized-profile-image.jpg" alt="User Avatar" style="border-radius:50%; width:50px; height:75px;"></div>
+        <div class="user-profile" aria-label="User Profile details" ><img src="./assets/images/optimized/optimized-profile-image.jpg" alt="User Avatar" style="border-radius:50%; width:50px; height:75px;"></div>
         <div class="user-name">${randomname}</div>
       </summary>
       <div class="user-details">
@@ -266,15 +277,15 @@ function GetHtmlStructure(randomname) {
         <div class="user-name">${randomname}</div>
         <div class="type-account"><span>Personal</span></div>
         <div class="user-email"><span>fakeEmail1@gmail.com</span></div>
-        <button aria-label="Profile" class="details-button">Profile</button>
-        <button aria-label="Favorites" class="details-button">Favorites</button>
-        <button aria-label="Log Out" class="details-button">Log Out</button>
+        <button aria-label="Go to user profile" class="details-button">Profile</button>
+        <button aria-label="Show Favorited post" class="details-button">Favorites</button>
+        <button aria-label="Log Out of account" class="details-button">Log Out</button>
       </div>
     </details>
   </div>
 
   <aside class="aside">
-    <nav aria-label="Main navigation" class="aside-container">
+    <nav aria-label="Main" class="aside-container">
       <ul>
         <li class="aside-nav-item" data-label="Home" ><a href="index.html"><svg aria-hidden="true" fill="#000000" width="50px" height="50px" viewBox="0 0 24 24" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg"><path d="M12 3s-6.186 5.34-9.643 8.232c-.203.184-.357.452-.357.768 0 .553.447 1 1 1h2v7c0 .553.447 1 1 1h3c.553 0 1-.448 1-1v-4h4v4c0 .552.447 1 1 1h3c.553 0 1-.447 1-1v-7h2c.553 0 1-.447 1-1 0-.316-.154-.584-.383-.768-3.433-2.892-9.617-8.232-9.617-8.232z"/></svg><span>Home</span></a></li>
 
@@ -377,7 +388,7 @@ function GetHtmlStructure(randomname) {
     </nav>
   </aside>
 
-  <main aria-label="Post container" class="main" id="main">
+  <main aria-label="Post" class="main" id="main">
   </main>
 
   <footer class="footer" id="footer">
@@ -437,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
   GetHtmlStructure(name);
   renderPosts();
 
-  document.querySelector('button[aria-label="Favorites"]').addEventListener('click', () => {
+  document.querySelector('button[aria-label="Show Favorited post"]').addEventListener('click', () => {
   console.log("Opening Favorites");
   renderFavorites();
   });
