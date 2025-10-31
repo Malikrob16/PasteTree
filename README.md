@@ -36,6 +36,8 @@ This project emphasizes **front-end UI/UX design**, responsiveness, and interact
 | **Deployment** | GitHub Pages |
 
 ---
+
+## 📂 Project Structure
 ```
 ```bash
 PasteTree/
