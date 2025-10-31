@@ -36,18 +36,22 @@ This project emphasizes **front-end UI/UX design**, responsiveness, and interact
 | **Deployment** | GitHub Pages |
 
 ---
-
-## 📂 Project Structure
-
+```
+```bash
 PasteTree/
 │
-├── assets/            # Images and icons
+├── assets/
+│   ├── CSS/           # Stylesheets
+│   ├── images/        # Images and icons
+│   ├── javascript/    # JavaScript files
+│   └── SVG/           # SVG assets
+│
+├── .gitignore         # Git ignore file
+├── explore.html       # Secondary HTML page
 ├── index.html         # Main HTML file
-├── style.css          # Styles and layout
-├── script.js          # JavaScript interactions (likes, comments, messages)
-├── data/              # Optional data storage or JSON files
-└── README.md          # Project documentation
-
+├── README.md          # Project documentation
+└── ThingsToFix.txt    # Notes or development todos
+```
 ---
 
 ## 🧠 Learning Goals
