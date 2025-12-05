@@ -3,6 +3,7 @@
 **Responsive Pinterest-style web application for baking enthusiasts**  
 Built with **HTML**, **CSS**, and **JavaScript**
 
+🔗 **Site deployed on purchased domain with configured DNS:** [PasteTree on deployed on paste-tree.com](https://www.paste-tree.com)
 🔗 **Live Demo:** [PasteTree on GitHub Pages](https://malikrob16.github.io/PasteTree/)
 
 ---
